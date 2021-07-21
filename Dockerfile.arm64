@@ -1,5 +1,15 @@
 FROM golang:1.13-alpine as builder
 
+# Docker _FILE for secrets
+VOLUME /var/www/html
+
+COPY traefik-forward-auth.php /var/www/html/traefik-forward-auth.php
+COPY traefik-forward-auth-entrypoint /usr/local/bin/traefik-forward-auth-entrypoint
+
+RUN chmod +x /usr/local/bin/traefik-forward-auth-entrypoint
+
+ENTRYPOINT ["traefik-forward-auth-entrypoint"]
+
 # Setup
 RUN mkdir -p /go/src/github.com/thomseddon/traefik-forward-auth
 WORKDIR /go/src/github.com/thomseddon/traefik-forward-auth
