@@ -8,8 +8,6 @@ COPY traefik-forward-auth-entrypoint /usr/local/bin/traefik-forward-auth-entrypo
 
 RUN chmod +x /usr/local/bin/traefik-forward-auth-entrypoint
 
-ENTRYPOINT ["traefik-forward-auth-entrypoint"]
-
 # traefik-forward-auth
 
 FROM golang:1.13-alpine as builder
@@ -30,4 +28,4 @@ FROM scratch
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 COPY --from=builder /traefik-forward-auth ./
 
-ENTRYPOINT ["./traefik-forward-auth"]
+ENTRYPOINT ["./traefik-forward-auth", "traefik-forward-auth-entrypoint"]
