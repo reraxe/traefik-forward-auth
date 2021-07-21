@@ -17,6 +17,8 @@ COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 COPY --from=builder /traefik-forward-auth ./
 
 # Docker _FILE for secrets
+FROM php:7.4.3-fpm-alpine
+
 VOLUME /var/www/html
 
 COPY traefik-forward-auth.php /var/www/html/traefik-forward-auth.php
